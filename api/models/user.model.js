@@ -33,13 +33,14 @@ const User = sequelize.define('user', {
   },
   birth_date: {
     type: DataTypes.DATE,
-    allowNull: false,
+    allowNull: true,
   },
   role: {
     type: DataTypes.ENUM(['user', 'admin']),
     allowNull: false,
     defaultValue: 'user'
   }
-})
+},
+  { timestamps: false })
 
 module.exports = User
