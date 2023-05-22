@@ -6,14 +6,20 @@ const Task_community = require('../api/models/task_community.model')
 const Community_expense = require('../api/models/community_expense.model')
 
 const createRelations = () => {
-  Community.belongsToMany(Task, { through: Task_community })
   Task.belongsToMany(Community, { through: Task_community })
+  Community.belongsToMany(Task, { through: Task_community })
 
   User.hasMany(Task_community)
   Task_community.belongsTo(User)
 
-/*   Community.hasMany(Task, { through: 'task_community' })
-  Task.belongsToMany(Community, { through: 'task_community' }) */
+  Community.belongsToMany(Expense, { through: Community_expense })
+  Expense.belongsToMany(Community, { through: Community_expense })
+
+  User.hasMany(Community_expense)
+  Community_expense.belongsTo(User)
 }
 
 module.exports = createRelations
+
+
+

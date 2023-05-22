@@ -12,8 +12,8 @@ const api = express()
 const connectDB = async () => {
   try {
     await sequelize.authenticate()
-    await sequelize.sync({force: true})
     createRelations()
+    await sequelize.sync()
     console.log('Connection has been established successfully.')
   } catch (err) {
     throw new Error('Cannot connect to the database')
@@ -33,4 +33,6 @@ const start = async () => {
 }
 
 start()
+
+
 

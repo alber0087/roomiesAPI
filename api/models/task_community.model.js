@@ -17,4 +17,5 @@ const Task_community = sequelize.define('task_community', {
 },
   { timestamps: false })
 
-module.exports = Task_community
+
+module.exports = Task_community  
