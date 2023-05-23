@@ -1,0 +1,15 @@
+INSERT INTO tasks (name, date) VALUES ('Complete project proposal', '2023-05-25');
+INSERT INTO tasks (name, date) VALUES ('Review client feedback', '2023-05-28');
+INSERT INTO tasks (name, date) VALUES ('Prepare presentation slides', '2023-06-02');
+INSERT INTO tasks (name, date) VALUES ('Update website content', '2023-05-30');
+INSERT INTO tasks (name, date) VALUES ('Attend team meeting', '2023-05-27');
+INSERT INTO tasks (name, date) VALUES ('Write monthly report', '2023-06-05');
+INSERT INTO tasks (name, date) VALUES ('Conduct user testing', '2023-06-10');
+INSERT INTO tasks (name, date) VALUES ('Finalize budget plan', '2023-06-07');
+INSERT INTO tasks (name, date) VALUES ('Create marketing campaign', '2023-06-15');
+INSERT INTO tasks (name, date) VALUES ('Research competitor analysis', '2023-06-12');
+INSERT INTO tasks (name, date) VALUES ('Deliver training session', '2023-06-20');
+INSERT INTO tasks (name, date) VALUES ('Resolve customer support tickets', '2023-06-18');
+INSERT INTO tasks (name, date) VALUES ('Test software updates', '2023-06-25');
+INSERT INTO tasks (name, date) VALUES ('Collaborate with design team', '2023-06-22');
+INSERT INTO tasks (name, date) VALUES ('Prepare sales forecast', '2023-06-28');
