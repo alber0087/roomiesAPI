@@ -6,10 +6,12 @@ const taskRouter = require('./task.route')
 const expenseRouter = require('./expense.route')
 const authRouter = require('./auth.route')
 
-router.use('/users', userRouter)
-router.use('/communities', communityRouter)
-router.use('/tasks', taskRouter)
-router.use('/expenses', expenseRouter)
+const checkAuth = require('../middlewares/auth')
+
+router.use('/users', checkAuth, userRouter)
+router.use('/communities', checkAuth, communityRouter)
+router.use('/tasks', checkAuth, taskRouter)
+router.use('/expenses', checkAuth, expenseRouter)
 router.use('/auth', authRouter)
 
 module.exports = router
