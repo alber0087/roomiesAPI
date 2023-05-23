@@ -17,6 +17,12 @@ const createRelations = () => {
 
   User.hasMany(Community_expense)
   Community_expense.belongsTo(User)
+
+  Community.hasMany(User)
+  User.belongsTo(Community)
+
+  User.hasOne(Expense)
+  Expense.belongsTo(User)
 }
 
 module.exports = createRelations

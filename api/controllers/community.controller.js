@@ -5,11 +5,12 @@ async function createCommunity(req, res) {
   try {
     console.log(res.locals.user.id)
     const community = await Community.create(req.body)
-    const role = {role: 'Manager'}
-    const user = await User.update(role, {
-      where: {
-        id: res.locals.user.id
+    const result = {
+      role: 'Manager',
+      communityId: community.id
       }
+    const user = await User.update(result, {
+      where: { id: res.locals.user.id }
     })
     return res.status(200).json(community)
   } catch (err) {
@@ -59,7 +60,17 @@ async function updateOneComunity(req, res) {
     } else {
       return res.status(404).send('Community not found')
     }
+  } catch (err) {
+    res.status(500).send(err.message)
+  }
+}
 
+async function addUserToCommunity (req, res) {
+  try {
+    const user = await User.findByPk({
+      where: { id: res.locals.user.id }
+    })
+    const community = await Community.findByPk({})
   } catch (err) {
     res.status(500).send(err.message)
   }
