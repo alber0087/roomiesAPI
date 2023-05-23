@@ -20,12 +20,20 @@ const checkAuth = (req, res, next) => {
   })
 }
 
-const checkAdmin = async (req, res, next) => {
+const checkManager = async (req, res, next) => {
   console.log(res.locals.user.role)
-  if (res.locals.user.role !== 'admin') {
+  if (res.locals.user.role !== 'Manager') {
     return res.status(500).send('You are not authorized to access this rource')
   }
   next()
 }
 
-module.exports = { checkAuth, checkAdmin }
+const checkAdmin = async (req, res, next) => {
+  console.log(res.locals.user.role)
+  if (res.locals.user.role !== 'Admin') {
+    return res.status(500).send('You are not authorized to access this rource')
+  }
+  next()
+}
+
+module.exports = { checkAuth, checkAdmin, checkManager }
