@@ -84,5 +84,21 @@ async function addUserToCommunity(req, res) {
   }
 }
 
+async function removeUserFromCommunity(req, res) {
+  try {
+    const user = res.locals.user
+    if (user.role !== "Manager") {
+      return res.status(500).send('Operation not allowed')
+    }
+    const community = { communityId: null }
+    await User.update(community, {
+      returning: true,
+      where: { id: req.params.id }
+    })
+    res.status(200).send('User successfully removed from the community!!')
+  } catch (err) {
+    res.status(500).send(err.message)
+  }
+}
 
-module.exports = { createCommunity, getAllCommunities, getOneCommunity, deleteOneCommunity, updateOneComunity, addUserToCommunity }
+module.exports = { createCommunity, getAllCommunities, getOneCommunity, deleteOneCommunity, updateOneComunity, addUserToCommunity, removeUserFromCommunity }
