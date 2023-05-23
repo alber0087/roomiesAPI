@@ -11,9 +11,9 @@ const Task = sequelize.define('task', {
     allowNull: false
   },
   status: {
-    type: DataTypes.ENUM(['pending', 'completed']),
+    type: DataTypes.ENUM(['Pending', 'Completed']),
     allowNull: false,
-    defaultValue: 'pending'
+    defaultValue: 'Pending'
   }
 },
   { timestamps: false })
