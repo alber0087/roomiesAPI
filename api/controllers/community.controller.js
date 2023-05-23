@@ -73,6 +73,13 @@ async function addUserToCommunity(req, res) {
     if (user.role !== "Manager") {
       return res.status(500).send('Operation not allowed') 
     }
+    const userInvited = await User.findByPk(req.params.id)
+    if (!userInvited){
+      return res.status(500).send('User not found')
+    }
+    if (userInvited.communityId){
+      return res.status(500).send('You already belong to a community')
+    }
     const community = { communityId: user.communityId }
     await User.update(community, {
       returning: true,
