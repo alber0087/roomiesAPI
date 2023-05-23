@@ -1,4 +1,6 @@
 const Task = require('../models/task.model')
+const Task_community = require('../models/task_community.model')
+const Community = require('../models/community.model')
 
 async function createTask(req, res) {
   try {
@@ -60,6 +62,35 @@ async function deleteTask(req, res) {
   }
 }
 
+async function userAddTask(req, res) {
+  try {
+    const userLogged = res.locals.user
+    console.log(userLogged.id)
 
-module.exports = { createTask, getAllTasks, getOneTask, updateTask, deleteTask }
+    const task = await Task.create(req.body)
+    console.log(task.dataValues)
+
+    const data = { userId: userLogged.id }
+
+    console.log(task.id)
+
+    
+
+    const community = await Community.findByPk(userLogged.communityId)
+    await community.addTask(task.id)
+    
+    await Task_community.update(data, {
+      where: { taskId: task.id } 
+    }) 
+
+
+    res.status(200).send('Task succesfully added!')
+  } catch(err) {
+    res.status(500).send(err.message)
+  }
+}
+
+
+
+module.exports = { createTask, getAllTasks, getOneTask, updateTask, deleteTask, userAddTask }
 
