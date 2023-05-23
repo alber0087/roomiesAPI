@@ -6,7 +6,7 @@ const taskRouter = require('./task.route')
 const expenseRouter = require('./expense.route')
 const authRouter = require('./auth.route')
 
-const checkAuth = require('../middlewares/auth')
+const { checkAuth } = require('../middlewares/auth')
 
 router.use('/users', checkAuth, userRouter)
 router.use('/communities', checkAuth, communityRouter)

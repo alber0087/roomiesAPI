@@ -1,8 +1,16 @@
 const Community = require('../models/community.model')
+const User = require('../models/user.model')
 
 async function createCommunity(req, res) {
   try {
+    console.log(res.locals.user.id)
     const community = await Community.create(req.body)
+    const role = {role: 'Manager'}
+    const user = await User.update(role, {
+      where: {
+        id: res.locals.user.id
+      }
+    })
     return res.status(200).json(community)
   } catch (err) {
     res.status(500).send(err.message)
