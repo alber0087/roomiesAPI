@@ -3,7 +3,9 @@ const User = require('../models/user.model')
 
 async function createCommunity(req, res) {
   try {
-    console.log(res.locals.user.id)
+    if (res.locals.user.communityId !== null) {
+      return res.status(500).send('User already belong to a community')
+    } 
     const community = await Community.create(req.body)
     const result = {
       role: 'Manager',
@@ -65,16 +67,22 @@ async function updateOneComunity(req, res) {
   }
 }
 
-async function addUserToCommunity (req, res) {
+async function addUserToCommunity(req, res) {
   try {
-    const user = await User.findByPk({
-      where: { id: res.locals.user.id }
+    const user = res.locals.user
+    if (user.role !== "Manager") {
+      return res.status(500).send('Operation not allowed') 
+    }
+    const community = { communityId: user.communityId }
+    await User.update(community, {
+      returning: true,
+      where: { id: req.params.id }
     })
-    const community = await Community.findByPk({})
+    res.status(200).send('User successfully added to the community!!')
   } catch (err) {
     res.status(500).send(err.message)
   }
 }
 
 
-module.exports = { createCommunity, getAllCommunities, getOneCommunity, deleteOneCommunity, updateOneComunity }
+module.exports = { createCommunity, getAllCommunities, getOneCommunity, deleteOneCommunity, updateOneComunity, addUserToCommunity }
