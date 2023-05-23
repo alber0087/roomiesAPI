@@ -21,7 +21,7 @@ const User = sequelize.define('user', {
   },
   gender: {
     type: DataTypes.ENUM(['male', 'female']),
-    allowNull: false
+    allowNull: true
   },
   smoker: {
     type: DataTypes.BOOLEAN,
