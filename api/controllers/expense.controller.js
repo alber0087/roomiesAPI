@@ -65,6 +65,9 @@ async function deleteExpense(req, res) {
 async function addExpense(req, res) {
   try {
     const userLogged = res.locals.user
+    if (!userLogged) {
+      return res.status(500).send('Operation not allowed')
+    }
     const expense = await Expense.create(req.body)
     const data = {
       userId: userLogged.id,
@@ -85,4 +88,27 @@ async function addExpense(req, res) {
   }
 }
 
-module.exports = { createExpense, getAllExpenses, updateExpense, getOneExpense, deleteExpense, addExpense }
+async function expensePaid(req, res) {
+  try {
+    const userLogged = res.locals.user
+    if (!userLogged) {
+      return res.status(500).send('Operation not allowed')
+    }
+    const community_expense = await Community_expense.findOne({ where: { expenseId: req.params.id } })
+    if (community_expense.status === 'Paid') {
+      return res.status(500).send('Expense already paid')
+    }
+    const data = { 
+      status: 'Paid',
+      to_pay: 0
+    }
+    await community_expense.update(data, {
+      where: { communityId: community_expense.communityId }
+    })
+    res.status(200).send('Expense paid')
+  } catch (err) {
+    res.status(500).send(err.message)
+  }
+}
+
+module.exports = { createExpense, getAllExpenses, updateExpense, getOneExpense, deleteExpense, addExpense, expensePaid }
