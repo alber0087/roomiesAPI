@@ -55,9 +55,42 @@ async function deleteUser(req, res) {
     } else {
       return res.status(404).send('User not found')
     }
-  } catch (error) {
-    res.status(500).send(error.message)
+  } catch (err) {
+    res.status(500).send(err.message)
   }
 }
 
-module.exports = { createUser, getAllUsers, updateUser, getOneUser, deleteUser }
+async function selfDelete(req, res) {
+  try {
+    const userLogged = res.locals.user
+    if(!userLogged){
+      return res.status(500).send('User does not exist')
+    }
+    await User.destroy({
+      where: {
+        id: userLogged.id
+      }
+    })
+    res.send(200).send('Your account has been deleted')
+  } catch (err) {
+    res.status(500).send(err.message)
+  }
+
+}
+
+async function selfUpdate(req, res) {
+  try {
+    const userLogged = res.locals.user
+    await User.update(req.body, {
+      where: {
+        id: userLogged.id
+      }
+    })
+    res.status(200).send('User succesfully updated')
+  } catch (err) {
+    res.status(500).send(err.message)
+  }
+}
+
+
+module.exports = { createUser, getAllUsers, updateUser, getOneUser, deleteUser, selfDelete, selfUpdate }
