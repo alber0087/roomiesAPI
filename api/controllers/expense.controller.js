@@ -66,7 +66,10 @@ async function addExpense(req, res) {
   try {
     const userLogged = res.locals.user
     const expense = await Expense.create(req.body)
-    const data = { userId: userLogged.id }
+    const data = {
+      userId: userLogged.id,
+      to_pay: req.body.price
+    }
     const community = await Community.findByPk(userLogged.communityId)
 
     await userLogged.addExpense(expense.id)
@@ -75,7 +78,7 @@ async function addExpense(req, res) {
     await Community_expense.update(data, {
       where: { expenseId: expense.id }
     })
-    
+
     res.status(200).send('Expense succesfully added!')
   } catch (err) {
     res.status(500).send(err.message)

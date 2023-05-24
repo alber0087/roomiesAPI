@@ -7,8 +7,8 @@ const Community_expense = sequelize.define('community_expense', {
     defaultValue: 0
   },
   status: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false
+    type: DataTypes.ENUM(['Pending', 'Paid']),
+    defaultValue: 'Pending'
   }
 },
   { timestamps: false })
