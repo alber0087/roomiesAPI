@@ -12,8 +12,8 @@ const createRelations = () => {
   User.hasMany(Task_community)
   Task_community.belongsTo(User)
 
-  Community.belongsToMany(Expense, { through: Community_expense })
   Expense.belongsToMany(Community, { through: Community_expense })
+  Community.belongsToMany(Expense, { through: Community_expense })
 
   User.hasMany(Community_expense)
   Community_expense.belongsTo(User)
@@ -21,7 +21,7 @@ const createRelations = () => {
   Community.hasMany(User)
   User.belongsTo(Community)
 
-  User.hasOne(Expense)
+  User.hasMany(Expense)
   Expense.belongsTo(User)
 }
 

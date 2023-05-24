@@ -80,7 +80,6 @@ async function userAddTask(req, res) {
 async function taskCompleted(req, res) {
   try {
     const userLogged = res.locals.user
-    console.log(userLogged)
     if (!userLogged) {
       return res.status(500).send('Operation not allowed')
     }

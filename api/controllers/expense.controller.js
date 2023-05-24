@@ -1,4 +1,6 @@
 const Expense = require('../models/expense.model')
+const Community = require('../models/community.model')
+const Community_expense = require('../models/community_expense.model')
 
 async function createExpense(req, res) {
   try {
@@ -60,4 +62,24 @@ async function deleteExpense(req, res) {
   }
 }
 
-module.exports = { createExpense, getAllExpenses, updateExpense, getOneExpense, deleteExpense }
+async function addExpense(req, res) {
+  try {
+    const userLogged = res.locals.user
+    const expense = await Expense.create(req.body)
+    const data = { userId: userLogged.id }
+    const community = await Community.findByPk(userLogged.communityId)
+
+    await userLogged.addExpense(expense.id)
+    await community.addExpense(expense.id)
+
+    await Community_expense.update(data, {
+      where: { expenseId: expense.id }
+    })
+    
+    res.status(200).send('Expense succesfully added!')
+  } catch (err) {
+    res.status(500).send(err.message)
+  }
+}
+
+module.exports = { createExpense, getAllExpenses, updateExpense, getOneExpense, deleteExpense, addExpense }
