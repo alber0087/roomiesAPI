@@ -1,6 +1,13 @@
 const Community = require('../models/community.model')
 const User      = require('../models/user.model')
 
+async function createCommunityByAdmin(req, res) {
+  try {
+    const community = await Community.create(req.body)
+    return res.status(200).json(community)
+  } catch (err) { res.status(500).send(err.message) }
+}
+
 async function createCommunity(req, res) {
   try {
     if (res.locals.user.communityId !== null) { return res.status(500).send('User already belong to a community') } 
@@ -30,6 +37,11 @@ async function getOneCommunity(req, res) {
 
 async function deleteOneCommunity(req, res) {
   try {
+    const community = await Community.findByPk(req.params.id)
+    console.log(community)
+    if (!community) { 
+      return res.status(404).send('Community not found')
+    }
     await Community.destroy({ where: { id: req.params.id } })
     return res.status(200).send(`successfully deleted a community`)
   } catch(err) { res.status(500).send(err.message) }
@@ -84,4 +96,4 @@ async function removeUserFromCommunity(req, res) {
   } catch (err) { res.status(500).send(err.message) }
 }
 
-module.exports = { createCommunity, getAllCommunities, getOneCommunity, deleteOneCommunity, updateOneComunity, addUserToCommunity, removeUserFromCommunity }
+module.exports = { createCommunity, getAllCommunities, getOneCommunity, deleteOneCommunity, updateOneComunity, addUserToCommunity, removeUserFromCommunity, createCommunityByAdmin }

@@ -35,7 +35,6 @@ async function updateExpense(req, res) {
       returning: true,
       where: { id: req.params.id },
     })
-
     if (expenseExists !== 0) {
       return res.status(200).json({ message: 'Expense updated successfully', expense: expense })
     } else {
