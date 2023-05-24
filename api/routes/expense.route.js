@@ -9,7 +9,7 @@ router.put('/:id', checkAdmin, updateExpense)
 router.get('/:id', checkAdmin, getOneExpense)
 router.delete('/:id', checkAdmin, deleteExpense)
 
-router.post('/addExpense', addExpense)
-router.put('/expensePaid/:id', expensePaid)
+router.post('/profile', addExpense)
+router.put('/profile/:id', expensePaid)
 
 module.exports = router

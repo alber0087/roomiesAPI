@@ -9,7 +9,7 @@ router.put('/:id', checkAdmin, updateUser)
 router.get('/:id', checkAdmin, getOneUser)
 router.delete('/:id', checkAdmin, deleteUser)
 
-router.delete('/delete', selfDelete)
-router.put('/update/:id', selfUpdate)
+router.delete('/profile', selfDelete)
+router.put('/profile/:id', selfUpdate)
 
 module.exports = router

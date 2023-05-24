@@ -9,7 +9,7 @@ router.get('/:id', checkAdmin, getOneTask)
 router.put('/:id', checkAdmin, updateTask)
 router.delete('/:id', checkAdmin, deleteTask)
 
-router.post('/addTask', userAddTask)
-router.put('/taskCompleted/:id', taskCompleted)
+router.post('/profile', userAddTask)
+router.put('/profile/:id', taskCompleted)
 
 module.exports = router

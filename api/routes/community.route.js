@@ -9,9 +9,9 @@ router.get('/', checkAdmin, getAllCommunities)
 router.get('/:id', checkAdmin, getOneCommunity)
 router.delete('/:id', checkAdmin, deleteOneCommunity)
 
-router.post('/createCommunity', createCommunity)
-router.post('/addUser/:id', checkManager, addUserToCommunity)
-router.post('/:id', checkManager, updateOneComunity)
-router.delete('/removeUser/:id', checkManager, removeUserFromCommunity)
+router.post('/profile', createCommunity)
+// router.post('/profile/:id/user/:userId', checkManager, addUserToCommunity)
+router.put('/profile/:id', checkManager, updateOneComunity)
+router.delete('/profile/:id', checkManager, removeUserFromCommunity)
 
 module.exports = router
