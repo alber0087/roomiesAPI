@@ -116,12 +116,10 @@ async function getAllExpensesByCommunity(req, res) {
     if (!userLogged) {
       return res.status(500).send('Operation not allowed')
     }
-    const expense = await Community_expense.findAll({
-      where: {
-        communityId: userLogged.communityId
-      }
+    const expenses = await Community.findByPk(userLogged.communityId, {
+      include: Expense
     })
-    return res.status(200).json(expense)
+    return res.status(200).json(expenses)
   } catch (err) {
     res.status(500).send(err.message)
   }
