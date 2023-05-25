@@ -19,8 +19,8 @@ const {
 
 
 router.get('/', checkAdmin, getAllCommunities)
-router.get('/:id', checkAdmin, getOneCommunity)
 router.get('/profile', checkManager, inviteUser)
+router.get('/:id', checkAdmin, getOneCommunity)
 router.post('/', checkAdmin, createCommunityByAdmin)
 router.post('/profile', createCommunity)
 router.post('/profile/:communityId', joinCommunity)
