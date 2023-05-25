@@ -1,5 +1,25 @@
 # roomiesAPI
 
+## Description
+
+Roomies is a app oriented to people that share apartment, to facilitate the coexistence with your home mates. It main objective is to organizate tasks, schedules and split expenses equally between partners.
+
+In this repo you can find the back-end of the project.
+
+Front-end: `Soon...`
+
+Demo: http://roomiesapi-production.up.railway.app
+
+## Team
+
+Roomies has been developed by:
+
+Alberto Rodríguez: https://github.com/alber0087
+
+Ayoze Bolaños: https://github.com/Ayo89
+
+Adrián González: https://github.com/adrGlez
+
 # API Routes
 
 ### Authentication Endpoints
