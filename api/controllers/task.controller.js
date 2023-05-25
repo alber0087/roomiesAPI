@@ -107,12 +107,10 @@ async function getAllTasksByCommunity(req, res) {
     if (!userLogged) {
       return res.status(500).send('Operation not allowed')
     }
-    const task = await Task_community.findAll({
-      where: {
-        communityId: userLogged.communityId
-      }
+    const tasks = await Community.findByPk(userLogged.communityId, {
+      include: Task
     })
-    return res.status(200).json(task)
+    return res.status(200).json(tasks)
   } catch (err) {
     res.status(500).send(err.message)
   }
