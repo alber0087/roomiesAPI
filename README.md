@@ -20,6 +20,46 @@ Ayoze Bolaños: https://github.com/Ayo89
 
 Adrián González: https://github.com/adrGlez
 
+# DB Schema
+
+## Users
+
+| KEY         | TYPE    | REFERENCE  | REQUIRED  | VALIDATION    |
+| ----------- | ------- | ---------- | --------- | ------------- |
+| first_name  | string  | -          | yes       | -             |
+| last_name   | string  | -          | yes       | -             |
+| email       | string  | -          | yes       | -             |
+| password    | string  | -          | yes       | -             |
+| gender      | enum    | -          | no        | -             |
+| smoker      | boolean | -          | no        | -             |
+| schedule    | enum    | -          | no        | -             |
+| birth_date  | date    | -          | no        | -             |
+| role        | enum    | -          | yes       | -             |
+
+## Communities
+
+| KEY     | TYPE    | REFERENCE  | REQUIRED  | VALIDATION    |
+| ------- | ------- | ---------- | --------- | ------------- |
+| name    | string  | -          | yes       | -             |
+| address | string  | -          | yes       | -             |
+| rooms   | integer | -          | yes       | -             |
+
+## Tasks
+
+| KEY    | TYPE    | REFERENCE  | REQUIRED  | VALIDATION    |
+| ------ | ------- | ---------- | --------- | ------------- |
+| name   | string  | -          | yes       | -             |
+| date   | string  | -          | yes       | -             |
+| status | enum    | -          | yes       | -             |
+
+## Expenses
+
+| KEY      | TYPE    | REFERENCE  | REQUIRED  | VALIDATION    |
+| -------- | ------- | ---------- | --------- | ------------- |
+| name     | string  | -          | yes       | -             |
+| price    | decimal | -          | yes       | -             |
+| split_by | string  | -          | no        | -             |
+
 # API Routes
 
 ### Authentication Endpoints
