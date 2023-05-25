@@ -1,5 +1,5 @@
 const Community = require('../models/community.model')
-const User      = require('../models/user.model')
+const User = require('../models/user.model')
 
 async function createCommunityByAdmin(req, res) {
   try {
@@ -10,7 +10,7 @@ async function createCommunityByAdmin(req, res) {
 
 async function createCommunity(req, res) {
   try {
-    if (res.locals.user.communityId !== null) { return res.status(500).send('User already belong to a community') } 
+    if (res.locals.user.communityId !== null) { return res.status(500).send('User already belong to a community') }
     const community = await Community.create(req.body)
     const result = {
       role: 'Manager',
@@ -18,50 +18,50 @@ async function createCommunity(req, res) {
     }
     await User.update(result, { where: { id: res.locals.user.id } })
     return res.status(200).json(community)
-  } catch(err) { res.status(500).send(err.message) }
+  } catch (err) { res.status(500).send(err.message) }
 }
 
 async function getAllCommunities(req, res) {
   try {
     const community = await Community.findAll()
     return res.status(200).json(community)
-  } catch(err) { res.status(500).send(err.message) }
+  } catch (err) { res.status(500).send(err.message) }
 }
 
 async function getOneCommunity(req, res) {
   try {
     const community = await Community.findByPk(req.params.id)
     return res.status(200).json(community)
-  } catch(err) { res.status(500).send(err.message) }
+  } catch (err) { res.status(500).send(err.message) }
 }
 
 async function deleteOneCommunity(req, res) {
   try {
     const community = await Community.findByPk(req.params.id)
     console.log(community)
-    if (!community) { 
+    if (!community) {
       return res.status(404).send('Community not found')
     }
     await Community.destroy({ where: { id: req.params.id } })
     return res.status(200).send(`successfully deleted a community`)
-  } catch(err) { res.status(500).send(err.message) }
+  } catch (err) { res.status(500).send(err.message) }
 }
 
 async function updateOneComunity(req, res) {
   try {
-    const {communityExist, community} = await Community.update(req.body, {
+    const { communityExist, community } = await Community.update(req.body, {
       returning: true,
-      where:{ id: req.params.id }
+      where: { id: req.params.id }
     })
     if (communityExist !== 0) {
       return res.status(200).json({ message: 'Community updated successfully', community: community })
     } else {
       return res.status(404).send('Community not found')
     }
-  } catch(err) { res.status(500).send(err.message) }
+  } catch (err) { res.status(500).send(err.message) }
 }
 
-async function addUserToCommunity(req, res) {
+/* async function addUserToCommunity(req, res) {
   try {
     const user = res.locals.user
     if (user.role !== "Manager") { return res.status(500).send('Operation not allowed') }
@@ -77,7 +77,7 @@ async function addUserToCommunity(req, res) {
     })
     res.status(200).send('User successfully added to the community!!')
   } catch (err) { res.status(500).send(err.message) }
-}
+} */
 
 async function removeUserFromCommunity(req, res) {
   try {
@@ -96,4 +96,53 @@ async function removeUserFromCommunity(req, res) {
   } catch (err) { res.status(500).send(err.message) }
 }
 
-module.exports = { createCommunity, getAllCommunities, getOneCommunity, deleteOneCommunity, updateOneComunity, addUserToCommunity, removeUserFromCommunity, createCommunityByAdmin }
+async function inviteUser(req, res) {
+  try {
+    const user = res.locals.user
+    const community = await Community.findByPk(user.communityId)
+    res.status(200).send(`You are invited to '${community.name}, with this ID: ${user.communityId}`)
+  } catch (err) {
+    res.status(500).send(err.message)
+  }
+}
+
+async function joinCommunity(req, res) {
+  try {
+    const userLogged = res.locals.user
+    const communityId = req.params.communityId
+    const data = { communityId: communityId }
+
+    await User.update(data, {
+      where: {
+        id: userLogged.id
+      }
+    })
+    const users = await User.findAll({
+      where: {
+        communityId: userLogged.communityId
+      }
+    })
+    let result = users.map(user => {
+      return {
+        firstName: user.firstName,
+        lastName: user.lastName
+      }
+    })
+
+    res.status(200).json(result)
+  } catch (err) {
+    res.status(500).send(err.message)
+  }
+}
+
+module.exports = {
+  createCommunity,
+  getAllCommunities,
+  getOneCommunity,
+  deleteOneCommunity,
+  updateOneComunity,
+  removeUserFromCommunity,
+  createCommunityByAdmin,
+  inviteUser,
+  joinCommunity
+}

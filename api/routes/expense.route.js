@@ -1,6 +1,15 @@
 const router = require('express').Router()
 
-const { createExpense, getAllExpenses, updateExpense, getOneExpense, deleteExpense, addExpense, expensePaid } = require('../controllers/expense.controller')
+const { 
+  createExpense, 
+  getAllExpenses, 
+  updateExpense, 
+  getOneExpense, 
+  deleteExpense, 
+  addExpense, 
+  expensePaid 
+} = require('../controllers/expense.controller')
+
 const { checkAdmin } = require('../middlewares/auth')
 
 router.post('/', checkAdmin, createExpense)
@@ -8,7 +17,6 @@ router.get('/', checkAdmin, getAllExpenses)
 router.put('/:id', checkAdmin, updateExpense)
 router.get('/:id', checkAdmin, getOneExpense)
 router.delete('/:id', checkAdmin, deleteExpense)
-
 router.post('/profile', addExpense)
 router.put('/profile/:id', expensePaid)
 
