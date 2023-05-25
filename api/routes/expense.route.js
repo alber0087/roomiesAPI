@@ -7,17 +7,19 @@ const {
   getOneExpense, 
   deleteExpense, 
   addExpense, 
-  expensePaid 
+  expensePaid, 
+  getAllExpensesByCommunity
 } = require('../controllers/expense.controller')
 
 const { checkAdmin } = require('../middlewares/auth')
 
-router.post('/', checkAdmin, createExpense)
 router.get('/', checkAdmin, getAllExpenses)
-router.put('/:id', checkAdmin, updateExpense)
 router.get('/:id', checkAdmin, getOneExpense)
-router.delete('/:id', checkAdmin, deleteExpense)
+router.get('/profile/expenses', getAllExpensesByCommunity)
+router.post('/', checkAdmin, createExpense)
 router.post('/profile', addExpense)
+router.put('/:id', checkAdmin, updateExpense)
 router.put('/profile/:id', expensePaid)
+router.delete('/:id', checkAdmin, deleteExpense)
 
 module.exports = router

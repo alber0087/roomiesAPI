@@ -110,4 +110,30 @@ async function expensePaid(req, res) {
   }
 }
 
-module.exports = { createExpense, getAllExpenses, updateExpense, getOneExpense, deleteExpense, addExpense, expensePaid }
+async function getAllExpensesByCommunity(req, res) {
+  try {
+    const userLogged = res.locals.user
+    if (!userLogged) {
+      return res.status(500).send('Operation not allowed')
+    }
+    const expense = await Community_expense.findAll({
+      where: {
+        communityId: userLogged.communityId
+      }
+    })
+    return res.status(200).json(expense)
+  } catch (err) {
+    res.status(500).send(err.message)
+  }
+}
+
+module.exports = { 
+  createExpense, 
+  getAllExpenses, 
+  updateExpense, 
+  getOneExpense, 
+  deleteExpense, 
+  addExpense, 
+  expensePaid,
+  getAllExpensesByCommunity 
+}

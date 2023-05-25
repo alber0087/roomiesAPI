@@ -128,10 +128,9 @@ async function joinCommunity(req, res) {
         lastName: user.lastName
       }
     })
-
     res.status(200).json(result)
   } catch (err) {
-    res.status(500).send(err.message)
+    res.status(404).send('Community not found')
   }
 }
 

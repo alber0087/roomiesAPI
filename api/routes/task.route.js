@@ -7,13 +7,15 @@ const {
   updateTask, 
   deleteTask, 
   userAddTask, 
-  taskCompleted 
+  taskCompleted, 
+  getAllTasksByCommunity
 } = require('../controllers/task.controller')
 
 const { checkAdmin } = require('../middlewares/auth')
 
 router.get('/:id', checkAdmin, getOneTask)
 router.get('/', checkAdmin, getAllTasks)
+router.get('/profile/tasks', getAllTasksByCommunity)
 router.post('/', checkAdmin, createTask)
 router.post('/profile', userAddTask)
 router.put('/:id', checkAdmin, updateTask)
