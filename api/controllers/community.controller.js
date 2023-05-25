@@ -111,24 +111,16 @@ async function joinCommunity(req, res) {
     const userLogged = res.locals.user
     const communityId = req.params.communityId
     const data = { communityId: communityId }
+    if(userLogged.communityId){
+      return res.status(500).send('You already belong to a community')
+    }
 
     await User.update(data, {
       where: {
         id: userLogged.id
       }
     })
-    const users = await User.findAll({
-      where: {
-        communityId: userLogged.communityId
-      }
-    })
-    let result = users.map(user => {
-      return {
-        firstName: user.firstName,
-        lastName: user.lastName
-      }
-    })
-    res.status(200).json(result)
+    res.status(200).send('Welcome to the Community')
   } catch (err) {
     res.status(404).send('Community not found')
   }
