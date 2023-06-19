@@ -101,6 +101,7 @@ async function taskCompleted(req, res) {
   }
 }
 
+
 async function getAllTasksByCommunity(req, res) {
   try {
     const userLogged = res.locals.user
@@ -115,6 +116,7 @@ async function getAllTasksByCommunity(req, res) {
     res.status(500).send(err.message)
   }
 }
+
 
 module.exports = { 
   createTask, 

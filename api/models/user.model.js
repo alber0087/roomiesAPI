@@ -4,11 +4,11 @@ const { DataTypes } = require('sequelize')
 const User = sequelize.define('user', {
   firstName: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: true
   },
   lastName: { 
     type: DataTypes.STRING, 
-    allowNull: false
+    allowNull: true
   },
   email: {
     type: DataTypes.STRING,
