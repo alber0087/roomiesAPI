@@ -9,7 +9,8 @@ const {
   removeUserFromCommunity, 
   createCommunityByAdmin, 
   inviteUser, 
-  joinCommunity
+  joinCommunity,
+  getCommunityUsers
 } = require('../controllers/community.controller')
 
 const { 
@@ -20,6 +21,7 @@ const {
 
 router.get('/', checkAdmin, getAllCommunities)
 router.get('/profile', inviteUser)
+router.get("/profile/users", getCommunityUsers);
 router.get('/:id', checkAdmin, getOneCommunity)
 router.post('/', checkAdmin, createCommunityByAdmin)
 router.post('/profile', createCommunity)

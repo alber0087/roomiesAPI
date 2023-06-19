@@ -126,6 +126,22 @@ async function joinCommunity(req, res) {
   }
 }
 
+async function getCommunityUsers(req, res) {
+  try {
+    const userLogged = res.locals.user;
+    if (!userLogged) {
+      return res.status(500).send("Operation not allowed");
+    }
+    const users = await Community.findByPk(userLogged.communityId, {
+      include: User,
+    });
+    return res.status(200).json(users);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+}
+
+
 module.exports = {
   createCommunity,
   getAllCommunities,
@@ -135,5 +151,6 @@ module.exports = {
   removeUserFromCommunity,
   createCommunityByAdmin,
   inviteUser,
-  joinCommunity
-}
+  joinCommunity,
+  getCommunityUsers
+};
