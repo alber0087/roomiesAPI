@@ -69,10 +69,10 @@ async function userAddTask(req, res) {
     const community = await Community.findByPk(userLogged.communityId)
     await community.addTask(task.id)
     await Task_community.update(data, {
-      where: { taskId: task.id } 
-    }) 
+      where: { taskId: task.id }
+    })
     res.status(200).send('Task succesfully added!')
-  } catch(err) {
+  } catch (err) {
     res.status(500).send(err.message)
   }
 }
@@ -96,17 +96,35 @@ async function taskCompleted(req, res) {
     } else {
       return res.status(404).send('Task not found')
     }
-  } catch(err) {
+  } catch (err) {
     res.status(500).send(err.message)
   }
 }
-    
 
-    
+async function getAllTasksByCommunity(req, res) {
+  try {
+    const userLogged = res.locals.user
+    if (!userLogged) {
+      return res.status(500).send('Operation not allowed')
+    }
+    const tasks = await Community.findByPk(userLogged.communityId, {
+      include: Task
+    })
+    return res.status(200).json(tasks)
+  } catch (err) {
+    res.status(500).send(err.message)
+  }
+}
 
+module.exports = { 
+  createTask, 
+  getAllTasks, 
+  getOneTask, 
+  updateTask, 
+  deleteTask, 
+  userAddTask, 
+  taskCompleted,
+  getAllTasksByCommunity 
+}
 
-
-
-
-module.exports = { createTask, getAllTasks, getOneTask, updateTask, deleteTask, userAddTask, taskCompleted }
 
