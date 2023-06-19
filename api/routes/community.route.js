@@ -18,7 +18,6 @@ const {
   checkManager 
 } = require('../middlewares/auth')
 
-
 router.get('/', checkAdmin, getAllCommunities)
 router.get('/profile', inviteUser)
 router.get("/profile/users", getCommunityUsers);
