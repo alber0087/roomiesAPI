@@ -135,7 +135,7 @@ async function getCommunityUsers(req, res) {
     const users = await Community.findByPk(userLogged.communityId, {
       include: User,
     });
-    return res.status(200).json(users);
+    return res.status(200).json({users});
   } catch (err) {
     res.status(500).send(err.message);
   }
