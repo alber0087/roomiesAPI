@@ -13,7 +13,7 @@ const connectDB = async () => {
   try {
     await sequelize.authenticate()
     createRelations()
-    await sequelize.sync({force:true}) 
+    await sequelize.sync() 
     console.log('Connection has been established successfully.')
   } catch (err) {
     throw new Error('Cannot connect to the database')
