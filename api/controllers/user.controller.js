@@ -92,5 +92,13 @@ async function selfUpdate(req, res) {
   }
 }
 
+async function getUserLogged(req, res) {
+  try {
+    const userLogged = res.locals.user
+    res.status(200).json(userLogged)
+  } catch (err) {
+    res.status(500).send(err.message)
+  }
+}
 
-module.exports = { createUser, getAllUsers, updateUser, getOneUser, deleteUser, selfDelete, selfUpdate }
+module.exports = { createUser, getAllUsers, updateUser, getOneUser, deleteUser, selfDelete, selfUpdate, getUserLogged }
