@@ -10,7 +10,7 @@ const Community = sequelize.define(
     },
     city: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     address: {
       type: DataTypes.STRING,
