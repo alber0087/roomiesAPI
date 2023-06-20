@@ -7,12 +7,14 @@ const {
   getOneUser, 
   deleteUser, 
   selfDelete, 
-  selfUpdate 
+  selfUpdate,
+  getUserLogged
 } = require('../controllers/user.controller')
 
 const { checkAdmin } = require('../middlewares/auth')
 
 router.get('/', checkAdmin, getAllUsers)
+router.get('/profile', getUserLogged)
 router.get('/:id', checkAdmin, getOneUser)
 router.post('/', checkAdmin, createUser)
 router.put('/:id', checkAdmin, updateUser)
