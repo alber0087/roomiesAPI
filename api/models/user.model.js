@@ -47,7 +47,7 @@ const User = sequelize.define('user', {
     image: {
     type: DataTypes.TEXT,
     allowNull: true
-  },
+  }
 },
   { timestamps: false })
 
