@@ -32,7 +32,7 @@ const User = sequelize.define('user', {
     allowNull: true,
   },
   birth_date: {
-    type: DataTypes.DATE,
+    type: DataTypes.STRING,
     allowNull: true,
   },
   description: {
