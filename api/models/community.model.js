@@ -25,7 +25,7 @@ const Community = sequelize.define(
       type: DataTypes.TEXT,
       allowNull: true,
       }
-    },
+    }
   },
   { timestamps: false }
 );
