@@ -20,7 +20,7 @@ const User = sequelize.define('user', {
     allowNull: false
   },
   gender: {
-    type: DataTypes.ENUM(['Male', 'Female']),
+    type: DataTypes.ENUM(['Male', 'Female', 'Other']),
     allowNull: true
   },
   smoker: {
