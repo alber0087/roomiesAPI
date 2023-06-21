@@ -20,31 +20,9 @@ const connectDB = async () => {
   }
 }
 
-const http = require('http')
-const server = http.createServer()
-
-const io = require('socket.io')(server, {
-  cors: { origin: '*' }
-})
-
-io.on('connection', (socket) => {
-  console.log('Client connected')
-
-  socket.broadcast.emit('chat_message', {
-    user: 'INFO',
-    message: 'New roomie connected'
-  })
-
-  socket.on('chat_message', (data) => {
-    io.emit('chat_message', data)
-  })
-})
-
-server.listen(3001)
-
 const start = async () => {
   try {
-    api.use(cors('*'))
+    api.use(cors())
     api.use(express.json())
     api.use('/api', router)
     api.listen(process.env.PORT || 5000)
