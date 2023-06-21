@@ -20,15 +20,15 @@ const User = sequelize.define('user', {
     allowNull: false
   },
   gender: {
-    type: DataTypes.ENUM(['male', 'female']),
+    type: DataTypes.ENUM(['Male', 'Female']),
     allowNull: true
   },
   smoker: {
-    type: DataTypes.BOOLEAN,
+    type: DataTypes.ENUM(['Yes', 'No']),
     allowNull: true,
   },
   schedule: {
-    type: DataTypes.ENUM(['morning', 'afternoon', 'night']),
+    type: DataTypes.ENUM(['Morning', 'Afternoon', 'Night']),
     allowNull: true,
   },
   birth_date: {
