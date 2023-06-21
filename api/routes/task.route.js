@@ -20,6 +20,6 @@ router.post('/', checkAdmin, createTask)
 router.post('/profile', userAddTask)
 router.put('/:id', checkAdmin, updateTask)
 router.put('/profile/:id', taskCompleted)
-router.delete('/:id', checkAdmin, deleteTask)
+router.delete('/profile/:id', deleteTask)
 
 module.exports = router
