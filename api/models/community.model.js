@@ -20,12 +20,10 @@ const Community = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    {
     image: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-      }
-    }
+    type: DataTypes.TEXT,
+    allowNull: true
+  }
   },
   { timestamps: false }
 );
