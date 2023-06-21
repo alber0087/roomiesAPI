@@ -43,7 +43,11 @@ const User = sequelize.define('user', {
     type: DataTypes.ENUM(['User','Manager', 'Admin']),
     allowNull: false,
     defaultValue: 'User'
-  }
+  },
+    image: {
+    type: DataTypes.TEXT,
+    allowNull: true
+  },
 },
   { timestamps: false })
 
